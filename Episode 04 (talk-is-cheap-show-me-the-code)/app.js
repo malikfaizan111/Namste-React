@@ -41,28 +41,34 @@ const styleCard = {
     backgroundColor:"#f0f0f0"
 }
 
-const RestaurantCard = () => {
+const RestaurantCard = (props) => {
+    const {resDetail} = props;
     return (
         <div className="res-card" style={styleCard}>
             <img className="res-logo" alt="res-logo" src="https://media-assets.swiggy.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/x4uyxvihmg8qa3pddkgf"></img>
-            <h3>Meghana Foods</h3>
-            <h4>Biryani, North Indian, Asian</h4>
+            <h3>{resDetail.resName}</h3>
+            <h4>{resDetail.cuisine}</h4>
             <h4>4.3 stars</h4>
             <h4>38 minutes</h4>
         </div>
     )
 }
+
+const resList=[
+    {id: 1, resName: "Meghana Foods", cuisine: "Biryani, North Indian, Asian"},
+    {id: 2, resName: "Cheezious", cuisine: "Burger, Fast Food"}
+]
+
 const Body = () => {
     return (
         <div className="body">
             <div className="search">Search</div>
             <div className="res-container">
-                <RestaurantCard />
-                <RestaurantCard />
-                <RestaurantCard />
-                <RestaurantCard />
-                <RestaurantCard />
-                <RestaurantCard />
+                {
+                    resList.map((restaurant,index) => <RestaurantCard key={restaurant.id}  resDetail={restaurant} />)
+                    // key is mendatory to write
+                    // never use index as key in looping (not Recommended) (use Unique id (best Practice))
+                }
             </div>
         </div>
     )
