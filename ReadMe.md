@@ -52,3 +52,9 @@
 
  export const Component;
  import {Component} from "path";
+
+ # React Hooks
+ (Normal JS Utility Functions)
+ - useState() - Superpowerful State Variables in react
+ * Remember - Whenever State Variable updates React will re-render the component
+ - useEffect()
