@@ -1,6 +1,7 @@
 import RestaurantCard from "./RestaurantCard";
 import resList from "../utils/mockData";
 import { useEffect, useState } from "react"
+import Shimmer from "./Shimmer";
 const Body = () => {
 
     // State Variable - Super powerful vairable
@@ -36,7 +37,13 @@ const Body = () => {
         setListOfRestaurant(json?.data?.cards[0]?.card?.card?.imageGridCards?.info);
         // setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards);
     };
-    return (
+
+    // Conditional Rendering
+    // if(listOfRestaurants.length === 0){
+    //     return <Shimmer/>
+    // }
+    
+    return listOfRestaurants.length === 0 ? <Shimmer/> : (
         <div className="body">
             {/* <div className="search">Search</div> */}
             <div className="filter">
