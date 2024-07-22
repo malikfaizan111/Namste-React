@@ -8,6 +8,8 @@ const Body = () => {
     const [listOfRestaurants, setListOfRestaurant] = useState([]);
     // arr[0], arr[1]
 
+    const [filteredRestaurants, setfilteredRestaurant] = useState([]);
+    const [searchText, setsearchText] = useState('');
     useEffect(() => {
         console.log("useEffect Called");
         fetchData();
@@ -35,6 +37,7 @@ const Body = () => {
         console.log(json?.data?.cards[0]?.card?.card?.imageGridCards?.info);
         // Optional Chaining
         setListOfRestaurant(json?.data?.cards[0]?.card?.card?.imageGridCards?.info);
+        setfilteredRestaurant(json?.data?.cards[0]?.card?.card?.imageGridCards?.info);
         // setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards);
     };
 
@@ -47,6 +50,14 @@ const Body = () => {
         <div className="body">
             {/* <div className="search">Search</div> */}
             <div className="filter">
+                <div className="search">
+                    <input type="text" className="search-box" value={searchText} onChange={(e)=> { setsearchText(e.target.value)}}/>
+                    <button onClick={() =>{
+                        console.log(searchText);
+                        const searchFiltered = listOfRestaurants.filter((res) => res.accessibility.altText.toLowerCase().includes(searchText.toLowerCase()));
+                        setfilteredRestaurant(searchFiltered);
+                    }}>Search</button>
+                </div>
                 <button className="filter-btn" onClick={() => {
                     const filteredList = listOfRestaurants.filter((res) => res.avgRating > 4);
                     console.log(filteredList);
@@ -57,7 +68,7 @@ const Body = () => {
             </div>
             <div className="res-container">
                 {
-                    listOfRestaurants.map((restaurant, index) => <RestaurantCard key={restaurant.id} resDetail={restaurant} />)
+                    filteredRestaurants.map((restaurant, index) => <RestaurantCard key={restaurant.id} resDetail={restaurant} />)
                     // key is mendatory to write
                     // never use index as key in looping (not Recommended) (use Unique id (best Practice))
                 }
