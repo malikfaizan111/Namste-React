@@ -58,3 +58,7 @@
  - useState() - Superpowerful State Variables in react
  * Remember - Whenever State Variable updates React will re-render the component
  - useEffect()
+
+ # Two Type of React Routing in web Apps
+ - Client Side Routing
+ - Server Side Routing
