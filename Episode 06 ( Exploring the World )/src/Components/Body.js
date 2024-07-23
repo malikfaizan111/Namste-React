@@ -25,19 +25,19 @@ const Body = () => {
         const json = await data.json();
 
         // Set random values in the JSON structure
-        json.data.cards[0].card.card.imageGridCards.info.map(item => {
-            // Generate random values
-            const randomRating = (Math.random() * (5 - 1) + 1).toFixed(1);
-            const randomDeliveryTime = Math.floor(Math.random() * 10) + 1;
-            item['avgRating'] = randomRating;
-            item['deliveryTime'] = randomDeliveryTime;
-        })
+        // json.data.cards[0].card.card.imageGridCards.info.map(item => {
+        //     // Generate random values
+        //     const randomRating = (Math.random() * (5 - 1) + 1).toFixed(1);
+        //     const randomDeliveryTime = Math.floor(Math.random() * 10) + 1;
+        //     item['avgRating'] = randomRating;
+        //     item['deliveryTime'] = randomDeliveryTime;
+        // })
 
 
-        console.log(json?.data?.cards[0]?.card?.card?.imageGridCards?.info);
+        console.log(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         // Optional Chaining
-        setListOfRestaurant(json?.data?.cards[0]?.card?.card?.imageGridCards?.info);
-        setfilteredRestaurant(json?.data?.cards[0]?.card?.card?.imageGridCards?.info);
+        setListOfRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setfilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         // setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards);
     };
 
@@ -46,7 +46,7 @@ const Body = () => {
     //     return <Shimmer/>
     // }
     
-    return listOfRestaurants.length === 0 ? <Shimmer/> : (
+    return listOfRestaurants?.length === 0 ? <Shimmer/> : (
         <div className="body">
             {/* <div className="search">Search</div> */}
             <div className="filter">
@@ -54,21 +54,21 @@ const Body = () => {
                     <input type="text" className="search-box" value={searchText} onChange={(e)=> { setsearchText(e.target.value)}}/>
                     <button onClick={() =>{
                         console.log(searchText);
-                        const searchFiltered = listOfRestaurants.filter((res) => res.accessibility.altText.toLowerCase().includes(searchText.toLowerCase()));
+                        const searchFiltered = listOfRestaurants.filter((res) => res?.info?.name.toLowerCase().includes(searchText.toLowerCase()));
                         setfilteredRestaurant(searchFiltered);
                     }}>Search</button>
                 </div>
                 <button className="filter-btn" onClick={() => {
-                    const filteredList = listOfRestaurants.filter((res) => res.avgRating > 4);
+                    const filteredList = listOfRestaurants.filter((res) => res?.info?.avgRating > 4);
                     console.log(filteredList);
-                    setListOfRestaurant(filteredList);
+                    setfilteredRestaurant(filteredList);
                 }}>
                     Top Rated Resturants
                 </button>
             </div>
             <div className="res-container">
                 {
-                    filteredRestaurants.map((restaurant, index) => <RestaurantCard key={restaurant.id} resDetail={restaurant} />)
+                    filteredRestaurants?.map((restaurant, index) => <RestaurantCard key={restaurant?.info?.id} resDetail={restaurant?.info} />)
                     // key is mendatory to write
                     // never use index as key in looping (not Recommended) (use Unique id (best Practice))
                 }
