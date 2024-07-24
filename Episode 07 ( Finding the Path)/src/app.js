@@ -6,6 +6,7 @@ import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import About from "./Components/About";
 import Contacts from "./Components/Contacts";
 import Error from "./Components/Error";
+import RestaurantMenu from "./Components/RestaurantMenu";
 
 const AppLayout = () => {
     return (
@@ -32,6 +33,10 @@ const appRouter = createBrowserRouter([
             {
                 path:'/contact',
                 element: <Contacts/>
+            },
+            {
+                path:'/restaurant/:resId',
+                element:<RestaurantMenu/>
             }
         ],
         errorElement:<Error/> // react router dom is giving us this hook for error...

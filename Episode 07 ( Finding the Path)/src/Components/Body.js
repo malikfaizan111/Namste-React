@@ -2,6 +2,7 @@ import RestaurantCard from "./RestaurantCard";
 import resList from "../utils/mockData";
 import { useEffect, useState } from "react"
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 const Body = () => {
 
     // State Variable - Super powerful vairable
@@ -71,9 +72,10 @@ const Body = () => {
             </div>
             <div className="res-container">
                 {
-                    filteredRestaurants?.map((restaurant, index) => <RestaurantCard key={restaurant?.info?.id} resDetail={restaurant?.info} />)
+                    filteredRestaurants?.map((restaurant, index) => <Link key={restaurant?.info?.id} to={"/restaurant/" + restaurant.info.id}><RestaurantCard resDetail={restaurant?.info} /></Link>)
                     // key is mendatory to write
                     // never use index as key in looping (not Recommended) (use Unique id (best Practice))
+                    
                 }
             </div>
         </div>
