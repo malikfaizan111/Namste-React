@@ -23,7 +23,7 @@ const RestaurantMenu = () => {
 
   const { name, cuisines, costForTwoMessage } = resInfo?.cards[2]?.card?.card?.info;
 
-  const { itemCards } = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
+  const itemCards = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
 
 console.log(itemCards);
 return (
@@ -34,12 +34,15 @@ return (
       </p>
       <h2>Menu</h2>
       <ul>
-        {itemCards.map((item) => (
-          <li key={item.card.info.id}>
-            {item.card.info.name} -{" Rs."}
-            {item.card.info.price / 100 || item.card.info.defaultPrice / 100}
+        {
+        itemCards.map((item) => (          
+            <li key={item?.card.card?.id ? item?.card?.info?.id : Math.random()}>
+            {item?.card?.card?.title}
+             {/* -{" Rs."} */}
+            {/* {item.card.info.price / 100 || item.card.info.defaultPrice / 100} */}
           </li>
-        ))}
+        ))
+        }
       </ul>
     </div>
   );
