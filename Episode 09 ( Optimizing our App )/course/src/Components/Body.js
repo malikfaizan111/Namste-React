@@ -1,8 +1,9 @@
 import RestaurantCard from "./RestaurantCard";
-import resList from "../utils/mockData";
 import { useEffect, useState } from "react"
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from '../utils/useOnlineStatus';
+
 const Body = () => {
 
     // State Variable - Super powerful vairable
@@ -45,11 +46,9 @@ const Body = () => {
         // setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards);
     };
 
-    // Conditional Rendering
-    // if(listOfRestaurants.length === 0){
-    //     return <Shimmer/>
-    // }
-    
+    const onlineStatus = useOnlineStatus();
+
+    if(onlineStatus === false) return <h1>Looks Like your are offline!!!. Please Check your Internet Connection</h1>
     return listOfRestaurants?.length === 0 ? <Shimmer/> : (
         <div className="body">
             {/* <div className="search">Search</div> */}

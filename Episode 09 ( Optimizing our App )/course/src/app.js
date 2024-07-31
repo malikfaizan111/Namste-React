@@ -1,12 +1,13 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { Header } from "./Components/Header"; // name Import
 import Body from "./Components/Body"; // Default Import
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
-import About from "./Components/About";
+// import About from "./Components/About";
 import Contacts from "./Components/Contacts";
 import Error from "./Components/Error";
 import RestaurantMenu from "./Components/RestaurantMenu";
+// import Grocery from "./Components/Grocery";
 
 const AppLayout = () => {
     return (
@@ -16,6 +17,18 @@ const AppLayout = () => {
         </div>
     )
 };
+
+// Chunking
+// Code Splitting
+// Dynamic Bundling
+// lazy Loading
+// on demand loading
+// dynamix imoprt
+
+const Grocery = lazy(() => import("./Components/Grocery"));
+
+const About = lazy(() => import("./Components/About"));
+
 
 const appRouter = createBrowserRouter([
     {
@@ -28,7 +41,11 @@ const appRouter = createBrowserRouter([
             },
             {
                 path:'/about',
-                element: <About/>
+                element: (
+                    <Suspense fallback={<h1>Loading....</h1>}>
+                      <About />
+                    </Suspense>
+                  ),
             },
             {
                 path:'/contact',
@@ -37,7 +54,15 @@ const appRouter = createBrowserRouter([
             {
                 path:'/restaurant/:resId',
                 element:<RestaurantMenu/>
-            }
+            },
+            {
+                path: "/grocery",
+                element: (
+                  <Suspense fallback={<h1>Loading....</h1>}>
+                    <Grocery />
+                  </Suspense>
+                ),
+              },
         ],
         errorElement:<Error/> // react router dom is giving us this hook for error...
     }
